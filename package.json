@@ -13,8 +13,8 @@
 	"scripts": {
 		"dev": "ntl dev",
 		"format": "nr biome check --write",
-		"test": "bun test",
-		"test:puppet": "nlx playwright test --headed puppet.test.ts"
+		"test": "bun test api --watch",
+		"test:puppet": "nlx playwright test --headed puppet.spec.ts"
 	},
 	"dependencies": {
 		"@netlify/functions": "^2.8.2",
