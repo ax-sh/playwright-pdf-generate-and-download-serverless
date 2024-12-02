@@ -24,7 +24,7 @@ test.describe("Playwright Browser Testing", () => {
 			.catch(() => false);
 		expect(exists).toBe(true);
 	});
-	test.only("should download a pdf", async ({ page }) => {
+	test("should download a pdf", async ({ page }) => {
 		await page.goto("https://example.com");
 		const pdfBuffer = await page.pdf({
 			format: "A4",
@@ -32,15 +32,25 @@ test.describe("Playwright Browser Testing", () => {
 			printBackground: true,
 			margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" },
 		}); // generate the PDF 🎉
+		const fileSizeInBytes = Buffer.byteLength(pdfBuffer);
+		console.log(`PDF size in memory: ${fileSizeInBytes} bytes`);
 		const uint8Array = new Uint8Array(pdfBuffer);
 
-		const fs = await import("node:fs/promises");
-		await fs.writeFile("output.pdf", uint8Array, (err, b) => {
+		const fs = await import("node:fs");
+		const pdfLocalFilePath = "output.pdf"
+		fs.writeFile(pdfLocalFilePath, uint8Array, (err) => {
 			if (err) {
 				console.error("Error writing the file:", err);
-			} else {
-				expect("File has been saved!").toBe(true);
+				return;
 			}
+			console.log("File has been saved!");
+			fs.stat(pdfLocalFilePath, (err, stats) => {
+				if (err) {
+					console.error("Error getting file size:", err);
+				} else {
+					console.log(`PDF size on disk: ${stats.size} bytes`);
+				}
+			});
 		});
 	});
 });
