@@ -4,7 +4,7 @@
 import type { Handler } from "@netlify/functions";
 
 export const handler: Handler = async (event, context) => {
-	const core = await import("../api/core");
+	const core = await import("./core");
 	const data = await core.downloadPDF();
 	return {
 		statusCode: 200,
