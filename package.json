@@ -1,0 +1,22 @@
+{
+	"name": "pdf-serverless-generate-download",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"scripts": {
+		"dev": "ntl dev",
+		"format": "nr biome check --write",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@netlify/functions": "^2.8.2",
+		"chrome-aws-lambda": "^10.1.0",
+		"playwright-core": "^1.49.0"
+	}
+}
