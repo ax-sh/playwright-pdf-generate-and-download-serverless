@@ -8,4 +8,15 @@ export async function downloadPDF() {
 }
 
 export const cloud = require("chrome-aws-lambda");
-export const desc = "Api for pdf generation";
+
+export function pdfResponse(pdf: Buffer, fileName: string) {
+	const response = {
+		headers: {
+			"Content-type": "application/pdf",
+			"content-disposition": `attachment; filename=${fileName}.pdf`,
+		},
+		statusCode: 200,
+		body: pdf.toString("base64"),
+		isBase64Encoded: true,
+	};
+}

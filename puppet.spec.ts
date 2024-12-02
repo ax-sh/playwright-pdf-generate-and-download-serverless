@@ -25,9 +25,9 @@ test.describe("Playwright Browser Testing", () => {
 		expect(exists).toBe(true);
 	});
 	test("should download a pdf", async ({ page }) => {
-		let url:string;
-		url = "https://example.com"
-		url = 'https://ax-sh.github.io/'
+		let url: string;
+		url = "https://example.com";
+		url = "https://ax-sh.github.io/";
 		await page.goto(url);
 		const pdfBuffer = await page.pdf({
 			format: "A4",
@@ -40,7 +40,7 @@ test.describe("Playwright Browser Testing", () => {
 		const uint8Array = new Uint8Array(pdfBuffer);
 
 		const fs = await import("node:fs");
-		const pdfLocalFilePath = "output.pdf"
+		const pdfLocalFilePath = "output.pdf";
 		fs.writeFile(pdfLocalFilePath, uint8Array, (err) => {
 			if (err) {
 				console.error("Error writing the file:", err);
