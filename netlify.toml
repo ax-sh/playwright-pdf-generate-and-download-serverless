@@ -1,6 +1,6 @@
 [build]
-    functions = "./functions"
-    core = "./functions"
+    functions = "api"
+    command = "bun run build"
 
 [functions]
    node_bundler = "esbuild"
@@ -10,6 +10,6 @@
 # totally optional, but makes up for
 # a much better UX
 [[redirects]]
-  from = "/"
-  to = "/.netlify/functions/index"
-  status = 200
+from = "/"
+to = "/.netlify/functions/index"
+status = 200
