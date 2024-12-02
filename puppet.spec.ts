@@ -39,7 +39,7 @@ test.describe("Playwright Browser Testing", () => {
 			if (err) {
 				console.error("Error writing the file:", err);
 			} else {
-				console.log("File has been saved!", b);
+				expect("File has been saved!").toBe(true);
 			}
 		});
 	});
