@@ -25,7 +25,10 @@ test.describe("Playwright Browser Testing", () => {
 		expect(exists).toBe(true);
 	});
 	test("should download a pdf", async ({ page }) => {
-		await page.goto("https://example.com");
+		let url:string;
+		url = "https://example.com"
+		url = 'https://ax-sh.github.io/'
+		await page.goto(url);
 		const pdfBuffer = await page.pdf({
 			format: "A4",
 			// displayHeaderFooter:true,
