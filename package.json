@@ -4,6 +4,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@playwright/test": "^1.49.0",
 		"@types/bun": "latest"
 	},
 	"peerDependencies": {
@@ -12,7 +13,8 @@
 	"scripts": {
 		"dev": "ntl dev",
 		"format": "nr biome check --write",
-		"test": "bun test"
+		"test": "bun test",
+		"test:puppet": "nlx playwright test --headed puppet.test.ts"
 	},
 	"dependencies": {
 		"@netlify/functions": "^2.8.2",
