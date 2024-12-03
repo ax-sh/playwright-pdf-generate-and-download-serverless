@@ -14,7 +14,7 @@
 		"format": "nr biome check --write",
 		"pretty": "nr biome format --write",
 		"test": "bun test api --watch",
-		"test:puppet": "nlx playwright test --headed puppet.spec.ts"
+		"test:puppet": "nlx playwright test --headed __test__/puppet.spec.ts"
 	},
 	"dependencies": {
 		"@netlify/functions": "^2.8.2",

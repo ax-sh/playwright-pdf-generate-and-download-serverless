@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { preparePdf } from "./api/core";
 
 test.describe("Playwright Browser Testing", () => {
 	test("should navigate to a page and check title", async ({ page }) => {
@@ -27,7 +26,7 @@ test.describe("Playwright Browser Testing", () => {
 	});
 	test("should download a pdf", async ({ page }) => {
 		const pdfLocalFilePath = "output.pdf";
-		const core = await import("./api/core");
+		const core = await import("../api/core");
 		let url: string;
 		url = "https://example.com";
 		url = "https://ax-sh.github.io/";
