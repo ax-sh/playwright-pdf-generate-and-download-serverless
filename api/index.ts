@@ -1,4 +1,4 @@
-// // Netlify On-demand Builder (runs on first request only)
+// Netlify On-demand Builder (runs on first request only)
 // // exports.handler = builder(handler);
 
 import type { Handler } from "@netlify/functions";
@@ -6,8 +6,5 @@ import type { Handler } from "@netlify/functions";
 export const handler: Handler = async (event, context) => {
 	const core = await import("./core");
 	const data = await core.downloadPDF();
-	return {
-		statusCode: 200,
-		body: JSON.stringify({ data }),
-	};
+	return data;
 };
