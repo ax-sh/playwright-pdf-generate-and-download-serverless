@@ -1,4 +1,5 @@
-# pdf-serverless-generate-download
+# pdf-serverless-generate-download 
+#### Prototype for using playwrite and serverless for pdf generation
 
 To install dependencies:
 
@@ -23,4 +24,6 @@ To run browser test
 bun test:puppet
 ```
 
-This project was created using `bun init` in bun v1.1.37. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+# Stack
+1. Playwrite 
+2. Netlify
