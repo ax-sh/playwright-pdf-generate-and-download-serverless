@@ -1,6 +1,6 @@
 import type { Page } from "playwright-core";
 
-export function base64EncodedResponse(buffer: Uint8Array, fileName: string) {
+export function base64EncodedResponse(buffer: Buffer, fileName: string) {
 	const response = {
 		headers: {
 			"Content-type": "application/pdf",
@@ -12,18 +12,19 @@ export function base64EncodedResponse(buffer: Uint8Array, fileName: string) {
 	};
 	return response;
 }
-export function pdfResponse(pdf: Uint8Array, fileName: string) {
+export function pdfResponse(pdf: Buffer, fileName: string) {
 	return base64EncodedResponse(pdf, fileName);
 }
 
-async function preparePdf(page: Page) {
+export async function preparePdf(page: Page) {
+	await page.setViewportSize({ width: 1280, height: 720 });
 	await page.evaluate(() => {
-		document.body.style.padding = "1cm";
+		document.body.style.paddingRight = "1cm"; // only for pdf wo maintain typography
 		document.body.style.backgroundColor = "black";
 	});
 	const m = "0cm";
 
-	const pdfBuffer: Uint8Array = await page.pdf({
+	const pdfBuffer = await page.pdf({
 		format: "A4",
 		// displayHeaderFooter:true,
 		printBackground: true,
@@ -43,7 +44,7 @@ export async function downloadPDF() {
 	const browser = await chromium.launch({
 		headless: false,
 		args: cloud.args,
-		// executablePath //only try on deployed
+		// executablePath // only try on deployed
 	});
 	const page = await browser.newPage();
 	let url: string;

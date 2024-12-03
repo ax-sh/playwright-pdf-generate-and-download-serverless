@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { preparePdf } from "./api/core";
 
 test.describe("Playwright Browser Testing", () => {
 	test("should navigate to a page and check title", async ({ page }) => {
@@ -25,22 +26,21 @@ test.describe("Playwright Browser Testing", () => {
 		expect(exists).toBe(true);
 	});
 	test("should download a pdf", async ({ page }) => {
+		const pdfLocalFilePath = "output.pdf";
+		const core = await import("./api/core");
 		let url: string;
 		url = "https://example.com";
 		url = "https://ax-sh.github.io/";
+
 		await page.goto(url);
-		const pdfBuffer = await page.pdf({
-			format: "A4",
-			// displayHeaderFooter:true,
-			printBackground: true,
-			margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" },
-		}); // generate the PDF 🎉
+
+		const pdfBuffer = await core.preparePdf(page);
 		const fileSizeInBytes = Buffer.byteLength(pdfBuffer);
 		console.log(`PDF size in memory: ${fileSizeInBytes} bytes`);
 		const uint8Array = new Uint8Array(pdfBuffer);
 
 		const fs = await import("node:fs");
-		const pdfLocalFilePath = "output.pdf";
+
 		fs.writeFile(pdfLocalFilePath, uint8Array, (err) => {
 			if (err) {
 				console.error("Error writing the file:", err);

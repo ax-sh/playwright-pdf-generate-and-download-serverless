@@ -1,6 +1,5 @@
 {
 	"name": "pdf-serverless-generate-download",
-	"module": "index.ts",
 	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
