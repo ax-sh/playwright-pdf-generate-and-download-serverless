@@ -2,6 +2,11 @@
 
 #### Prototype for using playwrite and serverless for pdf generation
 
+##### Stack
+
+1. Playwrite
+2. Netlify
+
 To install dependencies:
 
 ```bash
@@ -27,8 +32,3 @@ To run browser test
 ```sh
 bun test:puppet
 ```
-
-# Stack
-
-1. Playwrite
-1. Netlify
