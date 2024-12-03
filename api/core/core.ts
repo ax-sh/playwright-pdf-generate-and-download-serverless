@@ -1,4 +1,5 @@
-import type { Page } from "playwright-core";
+import { chromium, type Page } from "playwright-core";
+import cloud from "@sparticuz/chromium";
 
 export function base64EncodedResponse(buffer: Buffer, fileName: string) {
 	const response = {
@@ -32,8 +33,7 @@ export async function preparePdf(page: Page) {
 	}); // generate the PDF 🎉
 	return pdfBuffer;
 }
-
-export async function downloadPDF() {
+async function makeBrowser(type: "netlify" = "netlify") {
 	const cloud = require("@sparticuz/chromium");
 	const { chromium } = require("playwright-core");
 
@@ -46,9 +46,13 @@ export async function downloadPDF() {
 		args: cloud.args,
 		// executablePath // only try on deployed
 	});
+	return browser;
+}
+
+export async function downloadPDF() {
+	const browser = await makeBrowser("netlify");
 	const page = await browser.newPage();
-	let url: string;
-	url = "https://ax-sh.github.io/";
+	const url = "https://ax-sh.github.io/";
 	await page.goto(url, { waitUntil: "networkidle" }); // works for react api only with networkidle
 	const pdfBuffer = await preparePdf(page);
 
