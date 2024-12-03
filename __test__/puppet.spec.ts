@@ -31,6 +31,19 @@ test.describe("Playwright Browser Testing", () => {
 			.catch(() => false);
 		expect(exists).toBe(true);
 	});
+	test("should take a portfolio screenshot", async ({ page }) => {
+		const screenshotLocalFilePath = path.join(__dirname, "portfolio.png");
+		const url = "https://ax-sh.github.io/";
+		await page.goto(url);
+		await page.screenshot({ path: screenshotLocalFilePath });
+		// Optionally check the file existence
+		const fs = await import("node:fs/promises");
+		const exists = await fs
+			.access(screenshotLocalFilePath)
+			.then(() => true)
+			.catch(() => false);
+		expect(exists).toBe(true);
+	});
 	test("should download a pdf", async ({ page }) => {
 		const pdfLocalFilePath = path.join(__dirname, "output.pdf");
 		const core = await import("../api/core");
