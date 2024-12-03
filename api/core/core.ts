@@ -49,7 +49,7 @@ async function makeBrowser(type: "netlify" = "netlify") {
 	return browser;
 }
 
-export async function downloadPDF() {
+export async function downloadPDFResponse() {
 	const browser = await makeBrowser("netlify");
 	const page = await browser.newPage();
 	const url = "https://ax-sh.github.io/";
