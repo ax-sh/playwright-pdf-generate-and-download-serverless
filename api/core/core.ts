@@ -1,5 +1,5 @@
-import { chromium, type Page } from "playwright-core";
-import cloud from "@sparticuz/chromium";
+// biome-ignore lint/style/useImportType: <explanation>
+import { type Browser, type Page } from "playwright-core";
 
 export function base64EncodedResponse(buffer: Buffer, fileName: string) {
 	const response = {
@@ -59,4 +59,34 @@ export async function downloadPDF() {
 	await page.close();
 	await browser.close();
 	return pdfResponse(pdfBuffer, "portfolio.pdf");
+}
+
+export async function openPage(
+	callback: (page: Page) => Promise<void>,
+	timeoutMs = 30000,
+) {
+	let browser: Browser | null = null;
+	let page: Page | null = null;
+
+	try {
+		browser = await makeBrowser();
+		if (!browser) {
+			throw new Error("browser does not exist");
+		}
+		page = await browser.newPage({
+			acceptDownloads: true,
+			// timeout:
+		});
+
+		// Optional: Set global timeout for page operations
+		page.setDefaultTimeout(timeoutMs);
+
+		await callback(page);
+	} catch (error) {
+		console.error("Page operation failed:", error);
+		throw error;
+	} finally {
+		if (page) await page.close();
+		if (browser) await browser.close();
+	}
 }
