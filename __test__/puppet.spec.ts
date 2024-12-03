@@ -1,4 +1,10 @@
 import { expect, test } from "@playwright/test";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+// Construct __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 test.describe("Playwright Browser Testing", () => {
 	test("should navigate to a page and check title", async ({ page }) => {
@@ -14,18 +20,19 @@ test.describe("Playwright Browser Testing", () => {
 	});
 
 	test("should take a screenshot", async ({ page }) => {
+		const screenshotLocalFilePath = path.join(__dirname, "screenshot.png");
 		await page.goto("https://example.com");
-		await page.screenshot({ path: "screenshot.png" });
+		await page.screenshot({ path: screenshotLocalFilePath });
 		// Optionally check the file existence
 		const fs = await import("node:fs/promises");
 		const exists = await fs
-			.access("screenshot.png")
+			.access(screenshotLocalFilePath)
 			.then(() => true)
 			.catch(() => false);
 		expect(exists).toBe(true);
 	});
 	test("should download a pdf", async ({ page }) => {
-		const pdfLocalFilePath = "output.pdf";
+		const pdfLocalFilePath = path.join(__dirname, "output.pdf");
 		const core = await import("../api/core");
 		let url: string;
 		url = "https://example.com";
