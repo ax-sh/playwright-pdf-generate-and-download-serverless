@@ -1,4 +1,4 @@
-# pdf-serverless-generate-download
+# playwrite-pdf-generate-and-download-serverless
 
 #### Prototype for using playwrite and serverless for pdf generation
 
