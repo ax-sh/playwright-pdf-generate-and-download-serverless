@@ -17,8 +17,6 @@ To run:
 
 ```bash
 bun dev
-
-
 ```
 
 For running unit test
