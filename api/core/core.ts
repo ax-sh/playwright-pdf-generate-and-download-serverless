@@ -64,29 +64,37 @@ export async function downloadPDF() {
 export async function openPage(
 	callback: (page: Page) => Promise<void>,
 	timeoutMs = 30000,
-) {
+): Promise<void> {
 	let browser: Browser | null = null;
-	let page: Page | null = null;
 
 	try {
 		browser = await makeBrowser();
-		if (!browser) {
-			throw new Error("browser does not exist");
-		}
-		page = await browser.newPage({
-			acceptDownloads: true,
-			// timeout:
-		});
+		if (!browser) throw new Error("Failed to initialize the browser");
 
-		// Optional: Set global timeout for page operations
-		page.setDefaultTimeout(timeoutMs);
-
-		await callback(page);
+		// Using a scoped function to ensure proper cleanup
+		await executeWithPage(browser, callback, timeoutMs);
 	} catch (error) {
-		console.error("Page operation failed:", error);
+		console.error("Error during page operation:", error);
 		throw error;
 	} finally {
-		if (page) await page.close();
 		if (browser) await browser.close();
+	}
+}
+
+async function executeWithPage(
+	browser: Browser,
+	callback: (page: Page) => Promise<void>,
+	timeoutMs: number,
+): Promise<void> {
+	const page = await browser.newPage({ acceptDownloads: true });
+
+	try {
+		page.setDefaultTimeout(timeoutMs);
+		await callback(page);
+	} catch (error) {
+		console.error("Error during page interaction:", error);
+		throw error;
+	} finally {
+		await page.close();
 	}
 }
