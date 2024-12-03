@@ -1,10 +1,10 @@
-# playwrite-pdf-generate-and-download-serverless
+# Playwright-pdf-generate-and-download-serverless
 
-#### Prototype for using playwrite and serverless for pdf generation
+#### Prototype for using Playwright and serverless for pdf generation
 
 ##### Stack
 
-1. Playwrite
+1. Playwright
 2. Netlify
 
 To install dependencies:

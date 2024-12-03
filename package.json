@@ -1,5 +1,5 @@
 {
-	"name": "playwrite-pdf-generate-and-download-serverless",
+	"name": "playwright-pdf-generate-and-download-serverless",
 	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
